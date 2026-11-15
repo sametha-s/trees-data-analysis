@@ -235,7 +235,7 @@ ggsave("output/m1_vs_m2_fits.png",
 
 # M1 is a straight line (its slope is constant) whereas M2 is a curve that bends upward, getting steeper as
 # diameter increases. 
-# In the middle (about 12 to 17 in): M1 sits above many of the points, giving negative residuals,
+# In the middle (about 12 to 16 in): M1 sits above many of the points, giving negative residuals,
 # while M2 dips below M1 and tracks the data better.
 # At large diameters (about 20 in): M1 falls short of the highest point (about 77), giving a positive residual,
 # while M2 rises to meet it.
@@ -442,15 +442,16 @@ write.csv(pred_table, "output/predictions_at_15in.csv", row.names = FALSE)
 
 # Compare M3 and M4 volume-scale predictions with M1 (39.04 cubic feet).
 # Why direct inverses are not automatically arithmetic conditional mean volumes:
-# - The models estimate E[g(Y) | x], and in general E[g^-1(g(Y))] != g^-1(E[g(Y)])
-#   because g^-1 (square or exp) is a non-linear function (Jensen's inequality).
-# - For M4, exp(prediction) is closer to a conditional median than a mean.
-# - Getting the mean back needs a bias adjustment (not required here).
-
+# A model fitted on a transformed scale predicts the average of the transformed values and
+# converting that back does not give you the average of the original values.
+# For example, Squaring the average of the square roots comes out lower than the average of the original values, 
+# because squaring stretches the large values more than the small ones, and that stretching is lost when you average 
+# first and square afterwards. The same thing happens with the log scale and exponentiating.
+# Direct inverses: M3; omits variance term on square-root scale, M4; omits exp(sigma^2/2) factor
 ## -------------------------------------------------------------------------------------------------------------
 ## QUESTION 3(d)
 
-## Summary table for M1-M4 (supports the recommendation; do NOT rank on these alone)
+## Summary table for M1-M4 (supports the recommendation)
 model_summary <- data.frame(
     Model = c("M1", "M2", "M3", "M4"),
     Response = c("volume (ft3)", "volume (ft3)", "sqrt(volume) (sqrt ft3)", "log(volume) (log ft3)"),
