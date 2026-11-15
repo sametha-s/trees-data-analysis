@@ -1,4 +1,4 @@
-# Report
+# "Trees" Data Analysis in R - Model Transformations
 
 ## Aim
 To investigate the relationship between trunk diameter and timber volume of 31 black cherry trees.
