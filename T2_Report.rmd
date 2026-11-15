@@ -6,12 +6,12 @@
 To investigate the relationship between trunk diameter and timber volume of 31 black cherry trees.
 
 ## Dataset Specification
-Measurements of 31 black cherry trees from the R datasets package (`trees::datasets`).
+The dataset used in this analysis consists of measurements of 31 black cherry trees from the R datasets package (`trees::datasets`).
 
 | Variable | Definition |
 |:---------|:-----------|
 | `tree_id` | Tree Identifier |
-| `girth_in` | Trunch diameter (inches / in) |
+| `girth_in` | Trunk diameter (inches / in) |
 | `height_ft` | Tree height (feet / ft) |
 | `volume_ft3` | Timber volume (cubic feet / $ft^3$) |
 *Table 1: Dataset Specification*
