@@ -16,7 +16,7 @@ Measurements of 31 black cherry trees from the R datasets package (`trees::datas
 | `volume_ft3` | Timber volume (cubic feet / $ft^3$) |
 *Table 1: Dataset Specification*
 
-In this report, `volume_ft3` is colloquially referred to as either *volume* or *timber volume*, while `girth_in` is either referred to as *diameter* or *trunk diameter*.
+In this report, `volume_ft3` is referred to as either *volume* or *timber volume*, while `girth_in` is either referred to as *diameter* or *trunk diameter*.
 
 ## Q1(a): Inspect and Describe
 ```r
@@ -321,7 +321,7 @@ pred_M4_vol <- exp(pred_M4)   # exponentiate the M4 prediction
 |:------|:-----------------------|:------------|:------------------------|
 | M1 | 39.04 | cubic feet | 39.04 |
 | M3 | 6.09 | $\sqrt{cubic feet}$ | 37.06 |
-| M4 | 3.56 | $\log{(cubic feet)}$ | 35.07 |
+| M4 | 3.56 | $\ln{(cubic feet)}$ | 35.07 |
 *Table 2: M1 vs M3 vs M4: Predictions at 15 inches*
 
 At a diameter of 15 inches, M1 predicts a mean volume of 39.04 cubic feet. M3 predicts 6.09 on the square-root scale, which squares to 37.06 cubic feet, and M4 predicts 3.56 on the log scale, which exponentiates to 35.07 cubic feet. Both back-transformed values are lower than M1's predicted value by about 5% for M3 and 10% for M4.
@@ -336,9 +336,9 @@ These direct inverses are not automatically conditional mean volumes because the
 | M1 | Volume | $ft^3$ | 0.9331 | 4.25 |
 | M2 | Volume | $ft^3$ | 0.9588 | 3.33 |
 | M3 | $\sqrt{Volume}$ | $\sqrt{ft^3}$ | 0.9555 | 0.2997 |
-| M4 | $\log{(Volume)}$ | $\log{(ft^3)}$ | 0.9376 | 0.1314 |
+| M4 | $\log{(Volume)}$ | $\ln{(ft^3)}$ | 0.9376 | 0.1314 |
 *Table 3: Model Summaries*
 
-I recommend M2 as the preferred model, with M3 as a close alternative. M1 has the weakest adjusted $R^2$ (0.9331) and a clear U-shaped residual pattern, indicating unmodelled curvature. M2 has the highest adjusted $R^2$ (0.9588) and the lowest RSE (3.33 $ft^3$), and its residuals show no strong trend. M3’s residuals also show no strong systematic pattern, but M4’s smoother retains some curvature, though this is uncertain at the extremes. M1 and M2 are on the volume scale, so their predictions are directly in cubic feet. M3 and M4 predict $\sqrt{ft^3}$ and $\log{(ft^3)}$, so back-transformed values estimate median rather than mean volume. Adjusted $R^2$ and RSE from different response scales cannot rank predictive quality, because they measure variation in different quantities with different units which means that RSE values of 3.33, 0.2997 and 0.1314 are not comparable. Better prediction would require out-of-sample evidence, such as cross-validated errors computed on the volume scale. 
+I recommend M2 as the preferred model, with M3 as a close alternative. M1 has the weakest adjusted $R^2$ (0.9331) and a clear U-shaped residual pattern, indicating unmodelled curvature. M2 has the highest adjusted $R^2$ (0.9588) and the lowest RSE (3.33 $ft^3$), and its residuals show no strong trend. M3’s residuals also show no strong systematic pattern, but M4’s smoother retains some curvature, though this is uncertain at the extremes. M1 and M2 are on the volume scale, so their predictions are directly in cubic feet. M3 and M4 predict $\sqrt{ft^3}$ and $\ln{(ft^3)}$, so back-transformed values estimate median rather than mean volume. Adjusted $R^2$ and RSE from different response scales cannot rank predictive quality, because they measure variation in different quantities with different units which means that RSE values of 3.33, 0.2997 and 0.1314 are not comparable. Better prediction would require out-of-sample evidence, such as cross-validated errors computed on the volume scale. 
 
 Limitations: Only 31 observations, and the diagnostics are visual and in-sample.
